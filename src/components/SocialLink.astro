@@ -5,15 +5,32 @@ import type { SocialLink } from "../types/config";
 type Props = SocialLink;
 
 const { title, url, icon, external } = Astro.props;
+
+const isEmail = url.startsWith("mailto:");
+const emailAddress = isEmail ? url.replace("mailto:", "") : null;
 ---
 
-<a
-  href={url}
-  class="flex items-center gap-3 opacity-60 group-hover:opacity-30 hover:!opacity-60 transition-opacity"
-  target={external ? "_blank" : "_self"}
->
-  <Icon name={icon} width={25} height={25} />
-  <div>
-    <p>{title}</p>
-  </div>
-</a>
+{isEmail ? (
+  <button
+    type="button"
+    class="flex items-center gap-3 opacity-60 group-hover:opacity-30 hover:!opacity-60 transition-opacity cursor-pointer"
+    data-email={emailAddress}
+    onclick="navigator.clipboard.writeText(this.dataset.email).then(() => { const p = this.querySelector('p'); const original = p.textContent; p.textContent = 'Copied!'; setTimeout(() => p.textContent = original, 1500); })"
+  >
+    <Icon name={icon} width={25} height={25} />
+    <div>
+      <p>{title}</p>
+    </div>
+  </button>
+) : (
+  <a
+    href={url}
+    class="flex items-center gap-3 opacity-60 group-hover:opacity-30 hover:!opacity-60 transition-opacity"
+    target={external ? "_blank" : "_self"}
+  >
+    <Icon name={icon} width={25} height={25} />
+    <div>
+      <p>{title}</p>
+    </div>
+  </a>
+)}
