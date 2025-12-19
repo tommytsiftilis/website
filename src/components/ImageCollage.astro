@@ -1,0 +1,91 @@
+---
+// ImageCollage component - displays images from public/collage folder
+// Just drop images into public/collage and they'll appear here
+
+interface Props {
+  images: string[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="collage-container">
+  {images.map((src, index) => (
+    <div class={`collage-item collage-item-${(index % 6) + 1}`}>
+      <img src={src} alt={`About me ${index + 1}`} loading="lazy" />
+    </div>
+  ))}
+</div>
+
+<style>
+  .collage-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .collage-item {
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+  }
+
+  .collage-item:hover {
+    transform: scale(1.02);
+  }
+
+  .collage-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Varying sizes and rotations for visual interest */
+  .collage-item-1 {
+    grid-column: span 2;
+    aspect-ratio: 16/10;
+    transform: rotate(-2deg);
+  }
+
+  .collage-item-2 {
+    aspect-ratio: 3/4;
+    transform: rotate(3deg);
+  }
+
+  .collage-item-3 {
+    aspect-ratio: 1/1;
+    transform: rotate(-1deg);
+  }
+
+  .collage-item-4 {
+    grid-column: span 2;
+    aspect-ratio: 16/10;
+    transform: rotate(2deg);
+  }
+
+  .collage-item-5 {
+    aspect-ratio: 3/4;
+    transform: rotate(-3deg);
+  }
+
+  .collage-item-6 {
+    aspect-ratio: 1/1;
+    transform: rotate(1deg);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 500px) {
+    .collage-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .collage-item-1,
+    .collage-item-4 {
+      grid-column: span 2;
+    }
+  }
+</style>

@@ -1,14 +1,27 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import { aboutPageContent } from "../config";
 import ResumeItem from "../components/ResumeItem.astro";
 import SocialLinkBox from "../components/SocialLinkBox.astro";
+import ImageCollage from "../components/ImageCollage.astro";
 import {marked} from "marked"
+import fs from "node:fs";
+import path from "node:path";
 
 const pageDescription = marked.parse(aboutPageContent.about.description)
 const workDescription = marked.parse(aboutPageContent.work.description)
 const connectDescription = marked.parse(aboutPageContent.connect.description)
+
+// Get all images from the collage folder
+const collageDir = path.join(process.cwd(), "public", "collage");
+let collageImages: string[] = [];
+
+if (fs.existsSync(collageDir)) {
+  const files = fs.readdirSync(collageDir);
+  collageImages = files
+    .filter((file) => /\.(jpg|jpeg|png|gif|webp|avif)$/i.test(file))
+    .map((file) => `/collage/${file}`);
+}
 ---
 
 <Layout seo={aboutPageContent.seo}>
@@ -18,22 +31,7 @@ const connectDescription = marked.parse(aboutPageContent.connect.description)
     <div class="mb-14">
       <Fragment set:html={pageDescription} />
     </div>
-    <div class="flex flex-col min-[410px]:flex-row">
-      <Image
-        src={aboutPageContent.about.image_l.url}
-        alt={aboutPageContent.about.image_l.alt}
-        width={350}
-        height={250}
-        class="w-[350px] h-[250px] object-cover rounded-xl -rotate-6"
-      />
-      <Image
-        src={aboutPageContent.about.image_r.url}
-        alt={aboutPageContent.about.image_r.alt}
-        width={150}
-        height={250}
-        class="w-[150px] h-[250px] object-cover rounded-xl rotate-6 mx-auto sm:ml-auto"
-      />
-    </div>
+    {collageImages.length > 0 && <ImageCollage images={collageImages} />}
   </section>
   <section class="my-20 mt-32 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
     <h2 class="mb-8 sm:mb-0 opacity-60">Work</h2>
