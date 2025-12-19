@@ -12,16 +12,11 @@ const sortedImages = Object.entries(images)
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([_, module]) => module.default);
 
-// Rotation values for variety
-const rotations = [-3, 2, -1, 3, -2, 1];
 ---
 
 <div class="collage-container">
   {sortedImages.map((src, index) => (
-    <div
-      class="collage-item"
-      style={`--rotation: ${rotations[index % rotations.length]}deg`}
-    >
+    <div class="collage-item">
       <Image
         src={src}
         alt={`About me ${index + 1}`}
@@ -46,12 +41,11 @@ const rotations = [-3, 2, -1, 3, -2, 1];
     overflow: hidden;
     border-radius: 10px;
     transition: transform 0.3s ease;
-    transform: rotate(var(--rotation, 0deg));
     aspect-ratio: 1;
   }
 
   .collage-item:hover {
-    transform: rotate(var(--rotation, 0deg)) scale(1.03);
+    transform: scale(1.03);
     z-index: 1;
   }
 
