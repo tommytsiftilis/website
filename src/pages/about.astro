@@ -4,25 +4,11 @@ import { aboutPageContent } from "../config";
 import ResumeItem from "../components/ResumeItem.astro";
 import SocialLinkBox from "../components/SocialLinkBox.astro";
 import ImageCollage from "../components/ImageCollage.astro";
-import {marked} from "marked"
-import fs from "node:fs";
-import path from "node:path";
+import { marked } from "marked";
 
-const pageDescription = marked.parse(aboutPageContent.about.description)
-const workDescription = marked.parse(aboutPageContent.work.description)
-const connectDescription = marked.parse(aboutPageContent.connect.description)
-
-// Get all images from the collage folder
-const collageDir = path.join(process.cwd(), "public", "collage");
-let collageImages: string[] = [];
-
-if (fs.existsSync(collageDir)) {
-  const files = fs.readdirSync(collageDir);
-  collageImages = files
-    .filter((file) => /\.(jpg|jpeg|png|gif|webp|avif)$/i.test(file))
-    .sort() // Sort alphabetically - use number prefixes to control order (e.g., 01-photo.jpg, 02-photo.jpg)
-    .map((file) => `/collage/${file}`);
-}
+const pageDescription = marked.parse(aboutPageContent.about.description);
+const workDescription = marked.parse(aboutPageContent.work.description);
+const connectDescription = marked.parse(aboutPageContent.connect.description);
 ---
 
 <Layout seo={aboutPageContent.seo}>
@@ -32,7 +18,7 @@ if (fs.existsSync(collageDir)) {
     <div class="mb-14">
       <Fragment set:html={pageDescription} />
     </div>
-    {collageImages.length > 0 && <ImageCollage images={collageImages} />}
+    <ImageCollage />
   </section>
   <section class="my-20 mt-32 max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
     <h2 class="mb-8 sm:mb-0 opacity-60">Work</h2>
