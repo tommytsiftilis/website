@@ -124,7 +124,7 @@ export const projectsPageContent: ProjectPageContent = {
     {
       title: "Prophecy",
       description: "Unified Prediction Markets Terminal.",
-      image: "/Prophecy.png",
+      image: "/prophecy.png",
       year: "2026",
       url: "https://prophecy-web.vercel.app/",
     },
