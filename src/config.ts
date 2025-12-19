@@ -69,7 +69,7 @@ export const homePageContent: HomePageContent = {
   },
   role: "",
   description:
-    "Welcome to my personal website.",
+    "Welcome to my website! Currently building in the prediction markets space. Would love to chat if anything interests you here.",
   socialLinks: socialLinks,
   links: [
     {
