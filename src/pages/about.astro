@@ -20,6 +20,7 @@ if (fs.existsSync(collageDir)) {
   const files = fs.readdirSync(collageDir);
   collageImages = files
     .filter((file) => /\.(jpg|jpeg|png|gif|webp|avif)$/i.test(file))
+    .sort() // Sort alphabetically - use number prefixes to control order (e.g., 01-photo.jpg, 02-photo.jpg)
     .map((file) => `/collage/${file}`);
 }
 ---

@@ -91,9 +91,13 @@ export const aboutPageContent: AboutPageContent = {
       "About Thomas Tsiftilis.",
     image: identity.logo,
   },
-  subtitle: "About me",
+  subtitle: "",
   about: {
-    description: ``, // Markdown is supported
+    description: `Hey, I'm Tommy! I'm currently working in the prediction markets space.
+<br><br>
+I studied Industrial Engineering at UIUC, but I was always drawn toward finance and economics. That curiosity led to two summers interning at an options exchange, where I got pulled deeper into derivatives and trading. More recently, I spent a semester in Georgia Tech's Financial Engineering program before stepping back to explore other projects and interests.
+<br><br>
+Outside of work, I stay pretty active. I recently lucked out with a spot in the Chicago Marathon and am planning to take on a half Ironman once I'm fully healed from shoulder surgery. I'm also into camping and the outdoors, coffee, music, personal finance, and I recently started learning guitar.`, // Markdown is supported
     image_l: {
       url: "/demo-1.jpg",
       alt: "Left Picture",
@@ -123,25 +127,11 @@ export const projectsPageContent: ProjectPageContent = {
   subtitle: "Check out what I've been working on.",
   projects: [
     {
-      title: "Project One",
-      description: "A sample project description. This is placeholder content.",
-      image: "/demo-2.jpg",
-      year: "2024",
-      url: "https://github.com/tommytsiftilis",
-    },
-    {
-      title: "Project Two",
-      description: "Another sample project. Replace with your actual projects.",
-      image: "/demo-2.jpg",
-      year: "2024",
-      url: "https://github.com/tommytsiftilis",
-    },
-    {
-      title: "Project Three",
-      description: "Yet another placeholder project to showcase your work.",
-      image: "/demo-2.jpg",
-      year: "2023",
-      url: "https://github.com/tommytsiftilis",
+      title: "Prophecy",
+      description: "Unified Prediction Markets Terminal.",
+      image: "/Prophecy.png",
+      year: "2026",
+      url: "https://prophecy-web.vercel.app/",
     },
   ],
 };

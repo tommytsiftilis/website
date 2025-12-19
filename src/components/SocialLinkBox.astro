@@ -5,18 +5,33 @@ import type { SocialLink } from "../types/config";
 type Props = SocialLink;
 
 const { title, url, icon, external } = Astro.props;
+
+const isEmail = url.startsWith("mailto:");
+const emailAddress = isEmail ? url.replace("mailto:", "") : null;
 ---
 
-<a
-  href={url}
-  class="p-4 rounded-lg border border-white border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
-  target={external ? "_blank" : "_self"}
->
-  <Icon name={icon} width={25} height={25} />
-  <div class="flex items-center justify-between w-full">
-    <p>{title}</p>
-    <div class="rotate-45">
-      <Icon name="mdi:arrow-up" />
+{isEmail ? (
+  <button
+    type="button"
+    class="p-4 rounded-lg border border-white border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity cursor-pointer text-left"
+    data-email={emailAddress}
+    onclick="navigator.clipboard.writeText(this.dataset.email).then(() => { const p = this.querySelector('p'); const original = p.textContent; p.textContent = 'Copied!'; setTimeout(() => p.textContent = original, 1500); })"
+  >
+    <Icon name={icon} width={25} height={25} />
+    <p>{emailAddress}</p>
+  </button>
+) : (
+  <a
+    href={url}
+    class="p-4 rounded-lg border border-white border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
+    target={external ? "_blank" : "_self"}
+  >
+    <Icon name={icon} width={25} height={25} />
+    <div class="flex items-center justify-between w-full">
+      <p>{title}</p>
+      <div class="rotate-45">
+        <Icon name="mdi:arrow-up" />
+      </div>
     </div>
-  </div>
-</a>
+  </a>
+)}
